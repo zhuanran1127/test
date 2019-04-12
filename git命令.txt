@@ -1,0 +1,51 @@
+windows版本 ubuntu下没这么多步
+1.git init
+2.在本地创建ssh key
+  ssh-keygen -t rsa -C 1346677814@qq.com
+3.登陆GitHub账号，添加key
+4.添加路径
+  ssh-add ~/.ssh/id_rsa
+  失败
+  ssh-agent -s
+  失败
+  eval `ssh-agent -s`
+  再执行ssh-add即可成功
+5.验证
+  ssh -T git@github.com
+6.接下来我们要做的就是把本地仓库传到github上去，
+  在此之前还需要设置username和email，因为github每次commit都会记录他们。
+  git config --global user.name "your name"
+  git config --global user.email "your_email@youremail.com"
+进入要上传的仓库，右键git bash，添加远程地址：
+
+  git remote add origin git@github.com:yourName/yourRepo.git
+后面的yourName和yourRepo表示你再github的用户名和刚才新建的仓库，
+加完之后进入.git，打开config，这里会多出一个remote "origin"内容，
+这就是刚才添加的远程地址，也可以直接修改config来配置远程地址。
+7.工作流
+你的本地仓库由 git 维护的三棵"树"组成。
+第一个是你的 工作目录，它持有实际文件；
+第二个是 暂存区（Index），它像个缓存区域，临时保存你的改动；
+最后是 HEAD，它指向你最后一次提交的结果。
+
+你可以提出更改（把它们添加到暂存区），使用如下命令：
+git add <filename>
+git add *
+这是 git 基本工作流程的第一步；使用如下命令以实际提交改动：
+git commit -m "代码提交信息"
+现在，你的改动已经提交到了 HEAD，但是还没到你的远端仓库。
+
+trees
+推送改动
+你的改动现在已经在本地仓库的 HEAD 中了。执行如下命令以将这些改动提交到远端仓库：
+git push origin master
+可以把 master 换成你想要推送的任何分支。 
+
+如果你还没有克隆现有仓库，并欲将你的仓库连接到某个远程服务器，你可以使用如下命令添加：
+git remote add origin <server>
+如此你就能够将你的改动推送到所添加的服务器上去了。
+
+8.分支
+  查看本地分支git branch
+  创建本地分支git branch name
+  创建远程分支(本地分支push到远程)：$ git push origin [name]这里的name本地已经存在
